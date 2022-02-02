@@ -16,11 +16,11 @@ setterm -store	#将当前设置保存为reset
 #### 3.3 bash手册
 
 ```shell
-man [cmd]	#查看具体命令的手册
-man -k [keyword]	#查看相关的命令
-man [num] [cmd]		#查看对应部分
-[cmd] -help/--help
-info [cmd]
+man <cmd>	#查看具体命令的手册
+man -k <keyword>	#查看相关的命令
+man <num> <cmd>		#查看对应部分
+<cmd> -help/--help
+info <cmd>
 ```
 
 #### 3.5 文件和目录列表
@@ -36,30 +36,30 @@ ls [ai]/[a-i]/[!a]	#匹配特定字符
 
 ```shell
 touch -a	#只改变访问时间而非修改时间
-cp -Ri [src] [file/dir]	#递归复制整个目录+询问是否覆盖
-ln -s [file1] [file2]	#符号链接/软链接，file2->file1，相当于快捷方式
-ln [file1] [file2]		#硬链接，同一文件，保持同步
-readlink -f [file]	#显示最终链接
-mv [file] [name]	#更改文件名
-mv [file/dir] [dir]		#更改文件位置
-rm -rf [file]	#递归+强制
+cp -Ri <src> <file/dir>	#递归复制整个目录+询问是否覆盖
+ln -s <file1> <file2>	#符号链接/软链接，file2->file1，相当于快捷方式
+ln <file1> <file2>		#硬链接，同一文件，保持同步
+readlink -f <file>	#显示最终链接
+mv <file> <name>	#更改文件名
+mv <file/dir> <dir>		#更改文件位置
+rm -rf <file>	#递归+强制
 ```
 
 #### 3.7 处理目录
 
 ```shell
-mkdir -p [dir/dir]	#创建子目录
-rmdir [dir]		#删除空目录
+mkdir -p <dir/dir>	#创建子目录
+rmdir <dir>		#删除空目录
 tree		#树状显示当前目录
 ```
 
 #### 3.8 查看文件内容
 
 ```shell
-file [file]	#查看文件的详细信息
-cat/more/less [file]	#查看内容
-head/tail -n 2 [file]	#查看开头/最后两行
-tail -f [file]	#实时检测
+file <file>	#查看文件的详细信息
+cat/more/less <file>	#查看内容
+head/tail -n 2 <file>	#查看开头/最后两行
+tail -f <file>	#实时检测
 ```
 
 ### 四、更多的bash shell命令
@@ -69,16 +69,16 @@ tail -f [file]	#实时检测
 ```shell
 ps -efl --forest	#全部进程+完整格式+长列表+层级
 top/htop		#显示实时进程
-kill [PID]		#终止进程
-killall [name]
+kill <PID>		#终止进程
+killall <name>
 ```
 
 #### 4.2 监测磁盘空间
 
 ```shell
-mount -t [type] [device] [dir]	#手动挂载
+mount -t <type> <device> <dir>	#手动挂载
 #  mount -t vfat /dev/sdb1 /media/disk		#以Windows长文件系统挂载U盘
-umount [dev]/[dir]	#卸载
+umount <dev>/<dir>	#卸载
 df -h	#显示磁盘情况
 du -chs	#当前目录的磁盘情况，所有已列出文件大小+易读+每个输出的总计
 ```
@@ -86,14 +86,13 @@ du -chs	#当前目录的磁盘情况，所有已列出文件大小+易读+每个
 #### 4.3 处理数据文件
 
 ```shell
-sort -t ['char'] -k [pos] -nr [file]	#按指定字段分隔+指定排序字段+按数字排序+降序
-grep -vncre [content] [file]	#反向搜索+显示行号+只显示匹配行数+递归+多个匹配模式
-gzip [file]		#压缩，不保留原文件
-gzcat [gile]	#查看压缩的文件内容
-gzip -d / gunzip [file.gz]	#解压缩
-tar -czvf [file.tar.gz/file.tgz] [src]	#创建归档文件+使用gzip压缩+处理时显示文件+输出结果到文件
-tar -tf [file.tar]	#列出文件，但不提取
-tar -zxvf [file.tgz/file.tar.gz]	#重定向给gzip+解压+显示+输出到文件
+sort -t <'char'> -k <pos> -nr <file>	#按指定字段分隔+指定排序字段+按数字排序+降序
+grep -vncre <content> <file>	#反向搜索+显示行号+只显示匹配行数+递归+多个匹配模式
+gzip <file>		<#查看压缩的文件内容
+gzip -d / gunzip <file.gz>	#解压缩
+tar -czvf <file.tar.gz/file.tgz> <src>	#创建归档文件+使用gzip压缩+处理时显示文件+输出结果到文件
+tar -tf <file.tar>	#列出文件，但不提取
+tar -zxvf <file.tgz/file.tar.gz>	#重定向给gzip+解压+显示+输出到文件
 ```
 
 ### 五、理解shell
@@ -102,18 +101,18 @@ tar -zxvf [file.tgz/file.tar.gz]	#重定向给gzip+解压+显示+输出到文件
 
 ```shell
 bash/exit	#生成/退出子shell
-(cmd; (cmd))	#进程列表，生成多个子shell执行对应命令
+(<cmd>; (<cmd>))	#进程列表，生成多个子shell执行对应命令
 echo $BASH_SUBSHELL	#使用环境变量查看有几个子shell
-sleep [sec]&		#睡眠一定秒数+后台进程
+sleep <sec>&		#睡眠一定秒数+后台进程
 jobs -l	#显示后台信息+PID
-coproc [name] { cmd; } [redirec]	#使用协程并命名，支持双向管道
-coproc (cmd; cmd)	#协程+进程列表
+coproc <name> { <cmd>; } <redirec>	#使用协程并命名，支持双向管道
+coproc (<cmd>; <cmd>)	#协程+进程列表
 ```
 
 #### 5.3 理解shell的内建命令
 
 ```shell
-type -a / which [cmd]		#查看命令位置
+type -a / which <cmd>		#查看命令位置
 history | tail -n 10	#查看历史命令+重定向查看最近10条
 history -a	#写入.bash_history(否则保留在内存中，退出bash时才写入)
 !id		#执行对应的历史命令
@@ -127,26 +126,26 @@ alias -p	#查看可用别名
 
 ```shell
 env/printenv	#查看全局变量
-printenv [var] / echo $[var]	#使用全局变量的值
+printenv <var> / echo $<var>	#使用全局变量的值
 set		#查看局部变量、全局变量、用户定义变量
 ```
 
 #### 6.2 设置用户定义变量
 
 ```shell
-[var]="cmd"; export [var]	#创建局部变量+导入全局变量
+<var>="cmd"; export <var>	#创建局部变量+导入全局变量
 ```
 
 #### 6.3 删除环境变量
 
 ```shell
-unset [var]	#删除环境变量
+unset <var>	#删除环境变量
 ```
 
 #### 6.5 设置PATH环境变量
 
 ```shell
-export PATH="$PATH:[dir]"	#目录之间冒号分隔，退出系统后不保存
+export PATH="$PATH:<dir>"	#目录之间冒号分隔，退出系统后不保存
 ```
 
 #### 6.6 定位系统环境变量
@@ -159,11 +158,11 @@ $HOME/.bashrc	#个人用户的环境变量
 #### 6.7 数组变量
 
 ```shell
-var=(one twe three)	#给某个环境变量设置多个值，数组
-echo $var		#显示数组的第0个值
-echo ${var[n]}	#显示第n个值
-echo ${var[*]}	#显示整个数组
-unset var/var[n]	#删除整个数组或某个值
+<var>=(one twe three)	#给某个环境变量设置多个值，数组
+echo $<var>				#显示数组的第0个值
+echo ${<var>[n]}		#显示第n个值
+echo ${<var>[*]}		#显示整个数组
+unset <var>/<var>[n]	#删除整个数组或某个值
 ```
 
 ### 七、理解Linux文件权限
@@ -171,33 +170,33 @@ unset var/var[n]	#删除整个数组或某个值
 #### 7.1 Linux的安全性
 
 ```shell
-useradd -m [username]	#添加新用户+创建home目录
+useradd -m <username>	#添加新用户+创建home目录
 userdel	-r	#删除用户+删除home目录
 usermod	-lpLU	#修改用户名+修改密码+锁定+解锁
-passwd [user]	#修改密码
-chpasswd < [user:pwd]	#可以用文件重定向修改大量密码
+passwd <user>	#修改密码
+chpasswd < <user:pwd>	#可以用文件重定向修改大量密码
 ```
 
 #### 7.2 使用Linux组
 
 ```shell
 groupadd	#创建新组
-usermod -G [group] [user]	#添加用户到组
+usermod -G <group> <user>	#添加用户到组
 groupmod -gn	#修改GID+修改组名
 ```
 
 #### 7.3 理解文件权限
 
 ```shell
-umask [mode]	#修改默认权限，需要使用掩码
+umask <mode>	#修改默认权限，需要使用掩码
 ```
 
 #### 7.4 改变安全性设置
 
 ```shell
-chmod [ugoa] [+-=] / [mode] [file]	#修改文件权限
-chown [user/UID.group] -Rh [file]	#改变属主和属组+递归+符号链接
-chgrp [group] [file]	#改变默认属组
+chmod <ugoa> <+-=> / <mode> <file>	#修改文件权限
+chown <user/UID.group> -Rh <file>	#改变属主和属组+递归+符号链接
+chgrp <group> <file>	#改变默认属组
 ```
 
 ### 九、安装软件程序
@@ -205,23 +204,23 @@ chgrp [group] [file]	#改变默认属组
 #### 9.2 基于Debian的系统
 
 ```shell
-dpkg -ilrPV [pkg]	#安装+查找+移除+彻底删除+核验，用于.deb文件
-aptitude show/search/install/remove/purge [pkg]
+dpkg -ilrPV <pkg>	#安装+查找+移除+彻底删除+核验，用于.deb文件
+aptitude show/search/install/remove/purge <pkg>
 ```
 
 #### 9.3 基于Red Hat的系统
 
 ```shell
 yum list installed/update
-yum provides/install/remove/erase/update [pkg]	#查找包的归属+安装+删除+彻底删除+更新
-yum localinstall [pkg.rpm]	#本地安装
-yum clean all; yum deplist [pkg]; yum update --skip-broken	#处理包依赖关系
+yum provides/install/remove/erase/update <pkg>	#查找包的归属+安装+删除+彻底删除+更新
+yum localinstall <pkg.rpm>	#本地安装
+yum clean all; yum deplist <pkg>; yum update --skip-broken	#处理包依赖关系
 ```
 
 #### 9.4 从源码安装
 
 ```shell
-tar -zxvf [file.tgz]; cd [dir]; ./configure; make; make install		#解压+配置+编译+安装 
+tar -zxvf <file.tgz>; cd <dir>; ./configure; make; make install		#解压+配置+编译+安装 
 ```
 
 ### 十、使用编辑器
@@ -235,15 +234,15 @@ tar -zxvf [file.tgz]; cd [dir]; ./configure; make; make install		#解压+配置+
 | dw       | 删除当前单词          | d$           | 删除当前位置到行尾   |
 | J        | 删除换行符            | u            | 撤销                 |
 | a        | 光标后追加数据        | A            | 光标所在行末追加数据 |
-| r [char] | 替换当前字符          | R [text]     | 覆盖数据             |
+| r char | 替换当前字符          | R text     | 覆盖数据             |
 | y        | 复制                  | p            | 粘贴                 |
-| v        | 可视模式，用于复制    | / [text] + n | 查找                 |
+| v        | 可视模式，用于复制    | / text + n | 查找                 |
 
 | 命令行模式     |                 |                   |             |
 | -------------- | --------------- | ----------------- | ----------- |
 | q              | 未修改          | q!                | 取消修改    |
-| wq             | 保存到当前文件  | q [file]          | 另存为      |
-| :s/[old]/[new] | 替换第一个[old] | :%s/[old]/[new]/g | 替换所有old |
+| wq             | 保存到当前文件  | q <file>          | 另存为      |
+| :s/old/new | 替换第一个[old] | :%s/old/new/g | 替换所有old |
 
 ### 十一、构建基本脚本
 
