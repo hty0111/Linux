@@ -216,4 +216,8 @@ ROS2：https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
 
 参考：https://blog.csdn.net/wjinjie/article/details/108997692
 
+### LaTex
+
+参考：https://blog.csdn.net/qq_41814939/article/details/82288145
+
 ### 向日葵
