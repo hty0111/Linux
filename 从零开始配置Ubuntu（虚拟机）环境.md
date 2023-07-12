@@ -60,8 +60,11 @@
 ### cmake
 
 apt自带版本过低，建议官网安装
+
 官网：https://cmake.org/download/
+
 参考：https://www.xtuos.com/6120.html
+
 参考：https://blog.csdn.net/Man_1man/article/details/126467371
 
 
@@ -95,7 +98,9 @@ apt自带版本过低，建议官网安装
 ### anaconda3
 
 镜像：https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
+
 参考：https://blog.csdn.net/thy0000/article/details/122878599
+
 不要装在`/opt`目录下，包管理时会出现权限问题，可以装在默认路径下，或在主目录下新建Applications文件夹（matlab同理）
 
 ### typora
@@ -105,6 +110,7 @@ apt自带版本过低，建议官网安装
 ### vscode
 
 官网：https://code.visualstudio.com/Download#
+
 ==千万别下系统自带的，不支持中文输入==
 
 ### Jetbrains全家桶（CLion为例）
