@@ -1,14 +1,18 @@
 # 从零开始配置Ubuntu（虚拟机）环境
 
-*2022.7.15  2022.12.8  by HTY*
+
 
 
 
 ## Ubuntu系统安装
 
+
+
 ### VMware安装
 
 官网：https://www.vmware.com/
+
+
 
 ### 下载镜像
 
@@ -16,17 +20,25 @@
 
 参考：https://baijiahao.baidu.com/s?id=1730906316257453037&wfr=spider&for=pc
 
-### 安装
+
+
+### 系统安装
 
 参考：https://blog.csdn.net/Thousand_drive/article/details/124349178
 
 
 
+
+
 ## 基本配置
+
+
 
 ### 换源
 
 参考：https://blog.csdn.net/frighting_ing/article/details/122688413
+
+
 
 ### 输入法
 
@@ -45,17 +57,31 @@
 
 **添加时要把`only show current language`取消打勾**
 
+
+
 ### 网络工具
 
 `sudo apt install net-tools`
 
-### 有线网
 
-==TODO==
+
+### 实验室有线网
+
+参考：https://www.cc98.org/topic/5394591
+
+设置有线网IPv4地址：10.12.120.186
+
+设置VPN网关：10.5.1.9
+
+设置VPN DNS：10.10.0.21 
+
+
 
 ### gcc/g++
 
 `sudo apt install gcc/g++`
+
+
 
 ### cmake
 
@@ -69,7 +95,11 @@ apt自带版本过低，建议官网安装
 
 
 
+
+
 ## 安装各类软件
+
+
 
 ### utools
 
@@ -77,9 +107,13 @@ apt自带版本过低，建议官网安装
 
 参考：https://yuanliao.info/d/4672-ubuntuutools
 
+
+
 ### chrome
 
 官网：https://www.google.cn/intl/zh-CN/chrome/
+
+
 
 ### glados
 
@@ -87,13 +121,19 @@ apt自带版本过低，建议官网安装
 
 官网：https://glados.rocks/console
 
+
+
 ### v2ray
 
 官网：https://github.com/v2ray/v2ray-core/releases
 
+
+
 ### git
 
 参考：https://www.liaoxuefeng.com/wiki/896043488029600/896954117292416
+
+
 
 ### anaconda3
 
@@ -103,15 +143,21 @@ apt自带版本过低，建议官网安装
 
 不要装在`/opt`目录下，包管理时会出现权限问题，可以装在默认路径下，或在主目录下新建Applications文件夹（matlab同理）
 
+
+
 ### typora
 
 参考：https://blog.csdn.net/HandsomeHong/article/details/124648899
+
+
 
 ### vscode
 
 官网：https://code.visualstudio.com/Download#
 
 ==千万别下系统自带的，不支持中文输入==
+
+
 
 ### Jetbrains全家桶（CLion为例）
 
@@ -174,31 +220,7 @@ includes/C Header File
 #end
 ```
 
-### docker
 
-#### docker engine
-
-官网：https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
-遇到报错：Got permission denied while trying to connect to the Docker daemon socket at...
-参考：https://blog.csdn.net/u011337602/article/details/104541261/
-测试：`docker version`
-
-#### 配置镜像加速器
-
-参考：https://blog.csdn.net/jiangyu1013/article/details/84339469
-
-#### docker desktop
-
-照着官网安装后会有一堆问题，不建议安装
-
-### ROS
-
-官网：https://ros.org/blog/getting-started
-
-ROS1：https://wiki.ros.org/noetic/Installation/Ubuntu
-
-ROS2：https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
-也可参考 B站古月居《ROS2入门21讲》
 
 ### matlab
 
@@ -214,17 +236,13 @@ ROS2：https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
 
 配置环境变量： `export PATH=$HOME/Applications/MATLAB/R2021b/bin:$PATH`
 
-### GPU
 
-官网：https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
-
-参考：https://blog.csdn.net/Raink_LH/article/details/109595717
-
-参考：https://blog.csdn.net/wjinjie/article/details/108997692
 
 ### LaTex
 
 参考：https://blog.csdn.net/qq_41814939/article/details/82288145
+
+
 
 ### Zotero
 
@@ -232,4 +250,89 @@ ROS2：https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
 
 参考：https://www.cc98.org/topic/4969029
 
-### 向日葵
+
+
+
+
+## 其他环境
+
+
+
+### GPU
+
+#### CUDA
+
+- Additional Driver中确定驱动版本，一个驱动版本可以覆盖多个cuda版本
+- cuda安装用本地runfile的方式，不要覆盖原有驱动版本
+- 安装结束后测试`nvcc -V`，注意大写
+- 也可以在sample文件夹下找到可执行文件`./deviceQurey`，可以查看驱动对应的cuda版本和运行时版本（nvcc对应的版本）
+
+官网：https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
+
+下载：https://developer.nvidia.com/cuda-toolkit-archive
+
+参考：https://blog.csdn.net/qq_42731705/article/details/123797571
+
+参考：https://blog.csdn.net/Raink_LH/article/details/109595717
+
+参考：https://blog.csdn.net/wjinjie/article/details/108997692
+
+#### CUDNN
+
+- 需要登录账号
+- 把头文件和库文件复制到cuda下
+
+下载：https://developer.nvidia.com/rdp/cudnn-archive
+
+```shell
+sudo cp include/* /usr/local/cuda/include/
+sudo cp -P lib/* /usr/local/cuda/lib64/
+sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+```
+
+#### TensorRT
+
+- ==apt安装时必须指定版本（tensorrt和python包都需要）==，`apt-cache madison tensorrt`查看可安装版本
+- 测试`dpkg-query -W tensorrt`
+
+官网：https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-tar
+
+下载：https://developer.nvidia.com/nvidia-tensorrt-8x-download
+
+
+
+### ROS
+
+官网：https://ros.org/blog/getting-started
+
+ROS1：https://wiki.ros.org/noetic/Installation/Ubuntu
+
+ROS2：https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
+也可参考 B站古月居《ROS2入门21讲》
+
+
+
+### docker
+
+#### docker engine
+
+官网：https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
+遇到报错：Got permission denied while trying to connect to the Docker daemon socket at...
+参考：https://blog.csdn.net/u011337602/article/details/104541261/
+测试：`docker version`
+
+#### 配置镜像加速器
+
+参考：https://blog.csdn.net/jiangyu1013/article/details/84339469
+
+#### docker desktop
+
+照着官网安装后会有一堆问题，可以不安装
+
+
+
+### zsh
+
+参考：https://zhuanlan.zhihu.com/p/38061286
+
+参考：https://blog.csdn.net/weixin_43971252/article/details/122225757
