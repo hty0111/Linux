@@ -1,10 +1,11 @@
-# 从零开始配置Ubuntu（虚拟机）环境
+# 从零开始配置Ubuntu（双系统 / 虚拟机）环境
 
 
 
 
 
-## Ubuntu系统安装
+
+## Ubuntu系统安装  
 
 
 
@@ -24,7 +25,7 @@
 
 ### 系统安装
 
-参考：https://blog.csdn.net/Thousand_drive/article/details/124349178
+参考：https://zhuanlan.zhihu.com/p/101307629
 
 
 
@@ -40,11 +41,52 @@
 
 
 
+### 浏览器
+
+#### chrome
+
+官网：https://www.google.cn/intl/zh-CN/chrome/
+
+
+
+### 网络
+
+#### Clash
+
+参考：https://docs.gtk.pw/contents/linux/linux-clash-gui.html
+
+#### glados
+
+参考：https://www.jianshu.com/p/02e3e8ccfe80
+
+官网：https://glados.rocks/console
+
+#### v2ray
+
+官网：https://github.com/v2ray/v2ray-core/releases
+
+#### 实验室有线网
+
+`sudo apt install net-tools`
+
+参考：https://www.cc98.org/topic/5394591
+
+设置有线网IPv4地址：10.12.120.186
+
+设置VPN网关：10.5.1.9
+
+设置VPN DNS：10.10.0.21 
+
+#### 系统代理
+
+Setting –> Network –> Network Proxy –> Manual
+
+
+
 ### 输入法
 
 #### Intelligent pinyin
 
-==强烈推荐==
 参考：https://zhuanlan.zhihu.com/p/527602728
 
 #### fcitx-table
@@ -59,31 +101,19 @@
 
 
 
-### 网络工具
+### 基本依赖
 
-`sudo apt install net-tools`
+#### git
 
+参考：https://www.liaoxuefeng.com/wiki/896043488029600/896954117292416
 
-
-### 实验室有线网
-
-参考：https://www.cc98.org/topic/5394591
-
-设置有线网IPv4地址：10.12.120.186
-
-设置VPN网关：10.5.1.9
-
-设置VPN DNS：10.10.0.21 
-
-
-
-### gcc/g++
+#### gcc/g++
 
 `sudo apt install gcc/g++`
 
+#### cmake
 
-
-### cmake
+`sudo apt install cmake`
 
 apt自带版本过低，建议官网安装
 
@@ -95,43 +125,54 @@ apt自带版本过低，建议官网安装
 
 
 
+### zsh
 
+参考：https://zhuanlan.zhihu.com/p/38061286
 
-## 安装各类软件
-
-
-
-### utools
-
-官网：https://u.tools
-
-参考：https://yuanliao.info/d/4672-ubuntuutools
+参考：https://blog.csdn.net/weixin_43971252/article/details/122225757
 
 
 
-### chrome
+### GPU
 
-官网：https://www.google.cn/intl/zh-CN/chrome/
+#### CUDA
 
+- Additional Driver中确定驱动版本，一个驱动版本可以覆盖多个cuda版本，可以用apt手动安装驱动，注意内核版本是否匹配
+- cuda安装用本地runfile的方式，不要覆盖原有驱动版本
+- 安装结束后测试`nvcc -V`，注意大写
+- 也可以在sample文件夹下找到可执行文件`./deviceQurey`，可以查看驱动对应的cuda版本和运行时版本（nvcc对应的版本）
 
+官网：https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 
-### glados
+下载：https://developer.nvidia.com/cuda-toolkit-archive
 
-参考：https://www.jianshu.com/p/02e3e8ccfe80
+参考：https://blog.csdn.net/qq_42731705/article/details/123797571
 
-官网：https://glados.rocks/console
+参考：https://blog.csdn.net/Raink_LH/article/details/109595717
 
+参考：https://blog.csdn.net/wjinjie/article/details/108997692
 
+#### CUDNN
 
-### v2ray
+- 需要登录账号
+- 把头文件和库文件复制到cuda下
 
-官网：https://github.com/v2ray/v2ray-core/releases
+下载：https://developer.nvidia.com/rdp/cudnn-archive
 
+```shell
+sudo cp include/* /usr/local/cuda/include/
+sudo cp -P lib/* /usr/local/cuda/lib64/
+sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
+```
 
+#### TensorRT
 
-### git
+- ==apt安装时必须指定版本（tensorrt和python包都需要）==，`apt-cache madison tensorrt`查看可安装版本
+- 测试`dpkg-query -W tensorrt`
 
-参考：https://www.liaoxuefeng.com/wiki/896043488029600/896954117292416
+官网：https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-tar
+
+下载：https://developer.nvidia.com/nvidia-tensorrt-8x-download
 
 
 
@@ -142,6 +183,20 @@ apt自带版本过低，建议官网安装
 参考：https://blog.csdn.net/thy0000/article/details/122878599
 
 不要装在`/opt`目录下，包管理时会出现权限问题，可以装在默认路径下，或在主目录下新建Applications文件夹（matlab同理）
+
+
+
+
+
+## 其他软件 / 环境
+
+
+
+### utools
+
+官网：https://u.tools
+
+参考：https://yuanliao.info/d/4672-ubuntuutools
 
 
 
@@ -176,6 +231,7 @@ apt自带版本过低，建议官网安装
 将启动文件命令写入`/usr/bin/clion`，**一定要把所有用户权限都+x**，`sudo chmod +x /usr/bin/clion`，运行`clion`测试
 
 #### 配置快捷图标
+
 `/usr/share/applications/clion.Desktop`文件夹下新建
 
 #### 配置文件头部注释
@@ -183,7 +239,9 @@ apt自带版本过低，建议官网安装
 File --> settings --> Editor --> File and Code Templates
 
 ##### python
+
 python script
+
 ```python
 #if ($HEADER_COMMENTS)
 """
@@ -203,7 +261,9 @@ if __name__ == "__main__":
 ```
 
 ##### c/c++
+
 includes/C Header File
+
 ```c
 #if ($HEADER_COMMENTS)
 /**
@@ -252,55 +312,6 @@ includes/C Header File
 
 
 
-
-
-## 其他环境
-
-
-
-### GPU
-
-#### CUDA
-
-- Additional Driver中确定驱动版本，一个驱动版本可以覆盖多个cuda版本
-- cuda安装用本地runfile的方式，不要覆盖原有驱动版本
-- 安装结束后测试`nvcc -V`，注意大写
-- 也可以在sample文件夹下找到可执行文件`./deviceQurey`，可以查看驱动对应的cuda版本和运行时版本（nvcc对应的版本）
-
-官网：https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
-
-下载：https://developer.nvidia.com/cuda-toolkit-archive
-
-参考：https://blog.csdn.net/qq_42731705/article/details/123797571
-
-参考：https://blog.csdn.net/Raink_LH/article/details/109595717
-
-参考：https://blog.csdn.net/wjinjie/article/details/108997692
-
-#### CUDNN
-
-- 需要登录账号
-- 把头文件和库文件复制到cuda下
-
-下载：https://developer.nvidia.com/rdp/cudnn-archive
-
-```shell
-sudo cp include/* /usr/local/cuda/include/
-sudo cp -P lib/* /usr/local/cuda/lib64/
-sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
-```
-
-#### TensorRT
-
-- ==apt安装时必须指定版本（tensorrt和python包都需要）==，`apt-cache madison tensorrt`查看可安装版本
-- 测试`dpkg-query -W tensorrt`
-
-官网：https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-tar
-
-下载：https://developer.nvidia.com/nvidia-tensorrt-8x-download
-
-
-
 ### ROS
 
 官网：https://ros.org/blog/getting-started
@@ -329,10 +340,3 @@ ROS2：https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
 
 照着官网安装后会有一堆问题，可以不安装
 
-
-
-### zsh
-
-参考：https://zhuanlan.zhihu.com/p/38061286
-
-参考：https://blog.csdn.net/weixin_43971252/article/details/122225757
